@@ -64,8 +64,6 @@ class NewVisitorTest(LiveServerTestCase):
 		self.wait_for_row_in_list_table(u'1: Buy peacock feathers')
 		
 
-		self.fail('Finish the test!')
-
 	def test_multiple_users_can_start_lists_at_different_urls(self):
 		self.browser.get(self.live_server_url)
 		input_box = self.browser.find_element_by_id('id_new_item')
@@ -87,7 +85,7 @@ class NewVisitorTest(LiveServerTestCase):
 		self.assertNotIn('make a fly', page_text)
 
 		#Francis starts his own list
-		input_box = self.browser.find_elements_by_id('id_new_item')
+		input_box = self.browser.find_element_by_id('id_new_item')
 		input_box.send_keys('Buy milk')
 		input_box.send_keys(Keys.ENTER)
 		self.wait_for_row_in_list_table('1: Buy milk')
@@ -101,6 +99,7 @@ class NewVisitorTest(LiveServerTestCase):
 		page_text = self.browser.find_element_by_tag_name('body').text
 		self.assertNotIn('Buy peacock feathers', page_text)
 		self.assertIn('Buy milk', page_text)
+
 
 
 
