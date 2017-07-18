@@ -4,9 +4,9 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException 
 import time
 
-class NewVisitorTest(LiveServerTestCase):
+MAX_WAIT = 10
 
-	
+class NewVisitorTest(LiveServerTestCase):
 
 	def setUp(self):
 		self.browser = webdriver.Firefox()
@@ -15,7 +15,7 @@ class NewVisitorTest(LiveServerTestCase):
 		self.browser.quit()
 	
 	def wait_for_row_in_list_table(self, row_text):
-		MAX_WAIT = 10
+		
 		start_time = time.time()
 		while True:
 			try:
@@ -28,7 +28,7 @@ class NewVisitorTest(LiveServerTestCase):
 					raise e
 				time.sleep(0.5)
 	
-	def test_can_start_a_list_and_retrieve_it_later(self):
+	def test_can_start_a_list_for_one_user(self):
 		#Edith has heard about a cool new online to-do app.
 		# She goes to check out its homepage
 		self.browser.get(self.live_server_url)
@@ -93,7 +93,7 @@ class NewVisitorTest(LiveServerTestCase):
 		#Francis get his own unique URL
 		francis_list_url = self.browser.current_url
 		self.assertRegex(francis_list_url, '/lists/.+')
-		self.assertNotEqual(francis_list_url,edith_list_url)
+		self.assertNotEqual(francis_list_url, edith_list_url)
 
 		#Again, there is no trace of Edith's list
 		page_text = self.browser.find_element_by_tag_name('body').text
